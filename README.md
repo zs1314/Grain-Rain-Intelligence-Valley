@@ -43,6 +43,5 @@ streamlit run Webui.py
 ```
 
 > [!NOTE]  
-> 中国机器人及人工智能大赛江苏赛区二等奖
 
 
