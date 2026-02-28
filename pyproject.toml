@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grain-rain-intelligence-valley"
+version = "0.1.0"
+description = "Rainfall analytics toolkit for agricultural decision support"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Grain Rain Intelligence Valley Contributors" }
+]
+license = { text = "MIT" }
+keywords = ["rainfall", "agriculture", "analytics", "cli"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6.0",
+  "mypy>=1.10",
+]
+
+[project.scripts]
+griv-analyze = "grain_rain_intelligence_valley.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
