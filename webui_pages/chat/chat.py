@@ -1,11 +1,15 @@
 import streamlit as st
 from zhipuai import ZhipuAI
-import networkx as nx
-import matplotlib.pyplot as plt
+
+import settings
 
 def chat():
-    # 初始化ZhipuAI客户端
-    client = ZhipuAI(api_key="9ee745c98d90ac30bd8d386cc9a7dcbe.0HBoOevy5NB2jqog")  # 使用您自己的API密钥填充
+    # 初始化ZhipuAI客户端（从环境变量读取，避免硬编码密钥）
+    if not settings.ZHIPU_API_KEY:
+        st.warning("未检测到 ZHIPU_API_KEY，智能咨询功能不可用。请先配置环境变量。")
+        return
+
+    client = ZhipuAI(api_key=settings.ZHIPU_API_KEY)
 
     def construct_prompt(disease_name):
         """根据病害名称构建详细的Prompt"""
@@ -21,14 +25,6 @@ def chat():
             messages=[{"role": "user", "content": prompt}],
         )
         return response.choices[0].message.content if response.choices else "未能获取有效的响应，请重试。"
-
-    def create_relation_graph(edge_list):
-        """根据返回的边列表创建关系图"""
-        G = nx.parse_edgelist(edge_list, nodetype=str)
-        plt.figure(figsize=(8, 8))
-        pos = nx.spring_layout(G, seed=42)
-        nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=2000, edge_color='k', linewidths=2, font_size=12)
-        return plt
 
     st.title('小麦信息咨询')
 

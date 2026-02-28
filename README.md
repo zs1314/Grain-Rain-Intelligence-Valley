@@ -35,6 +35,17 @@
 pip install -r requirements.txt
 ```
 
+### Environment variables (recommended)
+
+为了提升安全性和可部署性，建议通过环境变量注入第三方 API Key 与模型路径，而不是在代码中硬编码。
+
+```bash
+export ZHIPU_API_KEY="your-zhipu-api-key"
+export QWEATHER_API_KEY="your-qweather-api-key"
+# 可选：生长阶段分类模型路径（默认是 weights/best_model.pth）
+export GROW_STAGE_MODEL="/absolute/path/to/best_model.pth"
+```
+
 ### One last step
 
 Run the `Webui.py`, and then, have fun! 😁

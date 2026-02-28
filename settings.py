@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import sys
 
 # Get the absolute path of the current file
@@ -8,8 +9,7 @@ ROOT = FILE.parent
 # Add the root path to the sys.path list if it is not already there
 if ROOT not in sys.path:
     sys.path.append(str(ROOT))
-# Get the relative path of the root directory with respect to the current working directory
-ROOT = ROOT.relative_to(Path.cwd())
+# Keep ROOT as absolute path to avoid cwd-dependent failures.
 
 # Sources
 IMAGE = 'Image'
@@ -45,3 +45,10 @@ SEGMENTATION_MODEL = MODEL_DIR / 'segment.pt'
 
 # Webcam
 WEBCAM_PATH = 0
+
+# API keys and model path (prefer environment variables in production)
+ZHIPU_API_KEY = os.getenv("ZHIPU_API_KEY", "")
+QWEATHER_API_KEY = os.getenv("QWEATHER_API_KEY", "")
+GROW_STAGE_MODEL = Path(
+    os.getenv("GROW_STAGE_MODEL", str(MODEL_DIR / "best_model.pth"))
+)
